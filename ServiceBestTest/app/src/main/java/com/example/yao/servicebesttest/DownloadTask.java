@@ -119,7 +119,7 @@ public class DownloadTask extends AsyncTask <String, Integer, Integer>{
                 listener.onFailed();
                 break;
             case TYPE_CANCELED:
-                listener.onCancled();
+                listener.onCancel();
                 break;
             case TYPE_PAUSED:
                 listener.onPaused();
@@ -145,7 +145,7 @@ public class DownloadTask extends AsyncTask <String, Integer, Integer>{
         Response response = client.newCall(request).execute();
         if (request != null && response.isSuccessful()){
             long contentLength = response.body().contentLength();
-            response.close();
+            response.body().close();
             return contentLength;
         }
         return 0;
